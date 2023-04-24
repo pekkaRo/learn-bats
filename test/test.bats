@@ -1,4 +1,6 @@
 setup() {
+    load 'test_helper/bats-support/load'
+    load 'test_helper/bats-assert/load'
     # get the containing directory of this file
     # use $BATS_TEST_FILENAME instead of ${BASH_SOURCE[0]} or $0,
     # as those will point to the bats executable's location or the preprocessed file respectively
@@ -9,5 +11,11 @@ setup() {
 }
 
 @test "can run our script" {
-    project.sh
+    run project.sh
+    assert_output --partial "Welcome to our project!"
+
+    #Only display the welcome message once
+    run project.sh
+    refute_output --partial 'Welcome to our project!'
+
 }
