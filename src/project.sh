@@ -19,7 +19,7 @@ _stop_echo_server() {
 
 _start_echo_server() {
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        ncat -l $PORT -k -c 'xargs -n1 echo' 2>/dev/null &
+        ncat -l $PORT -k -c 'xargs -n1 -r echo' 2>/dev/null &
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         nc localhost -lk $PORT -c 'xargs -n1 -r echo' >/dev/null 2>&1 &
     else
