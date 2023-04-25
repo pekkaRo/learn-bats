@@ -1,4 +1,4 @@
-https://github.com/pekkaro/learn-bats/actions/workflows/test.yml/badge.svg
+![CI workflow](https://github.com/pekkaro/learn-bats/actions/workflows/test.yml/badge.svg)
 
 # Learn-bats
 
