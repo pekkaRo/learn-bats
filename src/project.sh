@@ -17,11 +17,22 @@ _stop_echo_server() {
     fi
 }
 
+_start_echo_server() {
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        ncat -l $PORT -k -c 'xargs -n1 echo' 2>/dev/null &
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        nc localhost -lk $PORT -c 'xargs -n1 -r echo' >/dev/null 2>&1 &
+    else
+        echo "NOT IMPLEMENTED!" >&2
+        exit 1
+    fi
+}
+
 case $1 in
     start-echo-server)
         echo "Starting echo server"
         PORT=2000
-        nohup nc localhost -lk $PORT -c 'xargs -n1 -r echo' >/dev/null 2>&1 &
+        _start_echo_server
         echo $! > /tmp/project-echo-server.pid || true
         echo "$PORT" >&2
     ;;
