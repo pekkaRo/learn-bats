@@ -27,6 +27,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Install ncat
+        run: sudo apt-get install -y ncat
+
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
